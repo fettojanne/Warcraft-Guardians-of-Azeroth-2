@@ -1,0 +1,20 @@
+pdxmesh = {
+	name = "ungendered_mage_hat_01_mesh"
+	file = "ungendered_mage_hat_01.mesh"
+
+	meshsettings = {
+		name = "ungendered_mage_hat_01Shape"
+		index = 0
+		texture_diffuse = "ungendered_mage_hat_01_diffuse.dds"
+		texture_normal = "ungendered_mage_hat_01_normal.dds"
+		texture_specular = "ungendered_mage_hat_01_properties.dds"
+		shader = "portrait_attachment"
+		shader_file = "gfx/FX/jomini/portrait.shader"
+	}
+}
+
+entity = {
+	name = "ungendered_mage_hat_01_entity"
+	pdxmesh = "ungendered_mage_hat_01_mesh"
+}
+
