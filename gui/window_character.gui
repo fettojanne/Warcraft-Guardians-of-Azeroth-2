@@ -3451,6 +3451,27 @@ window = {
 
 		type vbox_diplomacy_box = vbox {
 			name = "diplomacy"
+			
+			# Warcraft
+			button_standard_hover = {
+				layoutpolicy_horizontal = expanding
+				size = { 0 25 }
+				onclick = "[VariableSystem.Set( 'expanded_view', Select_CString( VariableSystem.HasValue( 'expanded_view', 'pol_factions' ), 'none', 'pol_factions' ) )]"
+				down = "[VariableSystem.HasValue('expanded_view', 'pol_factions' )]"
+				tooltip = "[SelectLocalization( VariableSystem.HasValue('expanded_view', 'pol_factions' ), 'CV_DIPLOMACY_HIDE_TT', 'CV_DIPLOMACY_SHOW_TT' )]"
+
+				hbox = {
+					margin = { 5 0 }
+					margin_left = 10
+					margin_bottom = 3
+
+					text_label_left = {
+						layoutpolicy_horizontal = expanding
+						text = "Unions"
+						margin_right = 0
+					}
+				}
+			}
 
 			button_standard_hover = {
 				layoutpolicy_horizontal = expanding
