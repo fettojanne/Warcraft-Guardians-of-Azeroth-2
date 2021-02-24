@@ -11,12 +11,14 @@ window = {
 
 	using = Window_Size_Sidebar
 	using = Window_Background_Sidebar
-
 	state = {
 		name = _show
 		using = Animation_FadeIn_Quick
 		using = Sound_WindowShow_Standard
 		position_x = 0
+		
+		# Warcraft
+		on_start = "[GetVariableSystem.Set( 'expanded_view', 'none' )]"
 
 		on_start = "[GetVariableSystem.Set( 'hide_bottom_left_HUD', 'true' )]"
 	}
@@ -26,6 +28,9 @@ window = {
 		using = Animation_FadeOut_Quick
 		using = Sound_WindowHide_Standard
 		position_x = -60
+		
+		# Warcraft
+		on_start = "[GetVariableSystem.Clear( 'expanded_view' )]"
 
 		on_start = "[GetVariableSystem.Clear( 'hide_bottom_left_HUD' )]"
 	}
@@ -1875,7 +1880,10 @@ window = {
 			### TABS
 			hbox = {
 				name = "tabs"
-				visible = "[CharacterWindow.AreNoneExpanded]"
+	
+				# Warcraft
+				visible = "[VariableSystem.HasValue('expanded_view', 'none' )]"
+
 				layoutpolicy_horizontal = expanding
 
 				button_tab = {
@@ -2005,7 +2013,9 @@ window = {
 			spacer = { size = { 0 2 } }
 
 			widget = {
-				visible = "[CharacterWindow.AreNoneExpanded]"
+				# Warcraft
+				visible = "[VariableSystem.HasValue('expanded_view', 'none' )]"
+
 				layoutpolicy_vertical = preferred
 				layoutpolicy_horizontal = expanding
 				size = { 0 350 }
@@ -2746,7 +2756,10 @@ window = {
 			# TRAITS EXPANDED
 			scrollbox = {
 				name = "traits_expanded"
-				visible = "[CharacterWindow.AreTraitsExpanded]"
+				
+				# Warcraft
+				visible = "[VariableSystem.HasValue('expanded_view', 'traits' )]"
+				
 				layoutpolicy_vertical = expanding
 				layoutpolicy_horizontal = expanding
 
@@ -2851,7 +2864,10 @@ window = {
 			# TITLES EXPANDED
 			scrollbox = {
 				name = "titles_expanded"
-				visible = "[CharacterWindow.AreTitlesExpanded]"
+				
+				# Warcraft
+				visible = "[VariableSystem.HasValue('expanded_view', 'titles' )]"
+				
 				layoutpolicy_vertical = expanding
 				layoutpolicy_horizontal = expanding
 
@@ -2902,7 +2918,10 @@ window = {
 			# CLAIMS EXPANDED
 			scrollbox = {
 				name = "claims_expanded"
-				visible = "[CharacterWindow.AreClaimsExpanded]"
+				
+				# Warcraft
+				visible = "[VariableSystem.HasValue('expanded_view', 'claims' )]"
+				
 				layoutpolicy_vertical = expanding
 				layoutpolicy_horizontal = expanding
 
@@ -2984,7 +3003,10 @@ window = {
 			# DIPLOMACY EXPANDED
 			scrollbox = {
 				name = "diplomacy_expanded"
-				visible = "[CharacterWindow.AreDiplomacyExpanded]"
+
+				# Warcraft
+				visible = "[VariableSystem.HasValue('expanded_view', 'diplomacy' )]"
+
 				layoutpolicy_vertical = expanding
 				layoutpolicy_horizontal = expanding
 
@@ -3089,6 +3111,17 @@ window = {
 						}
 					}
 				}
+			}
+			
+			# Warcraft
+			# POL FACTIONS EXPANDED
+			scrollbox = {
+				name = "pol_factions_expanded"
+				visible = "[VariableSystem.HasValue('expanded_view', 'pol_factions' )]"
+				layoutpolicy_vertical = expanding
+				layoutpolicy_horizontal = expanding
+
+				using = Animation_Tab_Switch
 			}
 		}
 	}
@@ -3268,9 +3301,11 @@ window = {
 				button_standard_hover = {
 					layoutpolicy_horizontal = expanding
 					size = { 0 25 }
-					onclick = "[CharacterWindow.ToggleExpandedTitles]"
-					down = "[CharacterWindow.AreTitlesExpanded]"
-					tooltip = "[SelectLocalization( CharacterWindow.AreTitlesExpanded, 'CV_TITLES_HIDE_TT', 'CV_TITLES_SHOW_TT' )]"
+					
+					# Warcraft
+					onclick = "[VariableSystem.Set( 'expanded_view', Select_CString( VariableSystem.HasValue( 'expanded_view', 'titles' ), 'none', 'titles' ) )]"
+					down = "[VariableSystem.HasValue('expanded_view', 'titles' )]"
+					tooltip = "[SelectLocalization( VariableSystem.HasValue('expanded_view', 'titles' ), 'CV_TITLES_HIDE_TT', 'CV_TITLES_SHOW_TT' )]"
 
 					hbox = {
 						margin = { 5 0 }
@@ -3353,9 +3388,11 @@ window = {
 						layoutpolicy_horizontal = expanding
 						margin_left = 5
 						size = { 0 25 }
-						onclick = "[CharacterWindow.ToggleExpandedClaims]"
-						down = "[CharacterWindow.AreClaimsExpanded]"
-						tooltip = "[SelectLocalization( CharacterWindow.AreClaimsExpanded, 'CV_CLAIMS_HIDE_TT', 'CV_CLAIMS_SHOW_TT' )]"
+						
+						# Warcraft
+						onclick = "[VariableSystem.Set( 'expanded_view', Select_CString( VariableSystem.HasValue( 'expanded_view', 'claims' ), 'none', 'claims' ) )]"
+						down = "[VariableSystem.HasValue('expanded_view', 'claims' )]"
+						tooltip = "[SelectLocalization( VariableSystem.HasValue('expanded_view', 'claims' ), 'CV_CLAIMS_HIDE_TT', 'CV_CLAIMS_SHOW_TT' )]"
 
 						hbox = {
 							margin = { 5 0 }
@@ -3453,6 +3490,7 @@ window = {
 			name = "diplomacy"
 			
 			# Warcraft
+			# UNIONS
 			button_standard_hover = {
 				layoutpolicy_horizontal = expanding
 				size = { 0 25 }
@@ -3476,9 +3514,11 @@ window = {
 			button_standard_hover = {
 				layoutpolicy_horizontal = expanding
 				size = { 0 25 }
-				onclick = "[CharacterWindow.ToggleExpandedDiplomacy]"
-				down = "[CharacterWindow.AreDiplomacyExpanded]"
-				tooltip = "[SelectLocalization( CharacterWindow.AreDiplomacyExpanded, 'CV_DIPLOMACY_HIDE_TT', 'CV_DIPLOMACY_SHOW_TT' )]"
+				
+				# Warcraft
+				onclick = "[VariableSystem.Set( 'expanded_view', Select_CString( VariableSystem.HasValue( 'expanded_view', 'diplomacy' ), 'none', 'diplomacy' ) )]"
+				down = "[VariableSystem.HasValue('expanded_view', 'diplomacy' )]"
+				tooltip = "[SelectLocalization( VariableSystem.HasValue('expanded_view', 'diplomacy' ), 'CV_DIPLOMACY_HIDE_TT', 'CV_DIPLOMACY_SHOW_TT' )]"
 
 				hbox = {
 					margin = { 5 0 }
