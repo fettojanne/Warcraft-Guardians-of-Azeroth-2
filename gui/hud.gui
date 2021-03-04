@@ -86,10 +86,19 @@ widget = {
 
 	# Warcraft
 	### POL FACTIONS ###
+	button = {
+		size = { 100% 100% }
+		layer = bottom_bottom
+		
+		visible = "[GetVariableSystem.HasValue( 'right_window_open', 'pol_factions' )]"
+		
+		onclick = "[GetVariableSystem.Clear( 'right_window_open' )]"
+	}
 	widget = {
 		name = "pol_factions_window"
 		parentanchor = top|right
 		layer = windows_layer
+		alwaystransparent = no
 		
 		using = Window_Size_MainTab
 		
@@ -2072,7 +2081,9 @@ widget = {
 	name = "bottom_bar"
 	visible = "[And( Not( IsPauseMenuShown ), IsDefaultGUIMode )]"
 	size = { 100% 100% }
-	layer = bottom
+
+	# Warcraft
+	layer = middle
 
 	using = Animation_ShowHide_Quick
 
